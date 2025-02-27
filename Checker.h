@@ -22,6 +22,7 @@ public:
 	Team getTeam();
 	static void resetCurrentMoveDirection();
 private:
+	bool willCaptureInPath(int startX, int startY, int endX, int endY, int xDir, int yDir, std::vector<Checker>& listCheckers);
 	void draw(SDL_Renderer* renderer, int squareSizePixels, int x, int y, bool drawTransparent = false);
 	int checkHowFarCanMoveInDirection(int xDirection, int yDirection, std::vector<Checker>& listCheckers);
 	Checker* findCheckerAtPosition(int x, int y, std::vector<Checker>& listCheckers);
