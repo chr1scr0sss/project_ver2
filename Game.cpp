@@ -1,4 +1,6 @@
-﻿#include "Game.h"
+#include "Game.h"
+#include <iostream>
+using namespace std;
 
 Game::Game(SDL_Window* window, SDL_Renderer* renderer, int boardSizePixels) :
     squareSizePixels(boardSizePixels / (10 + 6)), gameModeCurrent(GameMode::playing) {
@@ -70,6 +72,7 @@ void Game::processEvents(bool& running) {
         int offsetY = 192;
         int squareX = ((mouseX - offsetX) / squareSizePixels);
         int squareY = ((mouseY - offsetY) / squareSizePixels);
+		cout << "SquareX: " << squareX << " SquareY: " << squareY << endl;
 
         if (gameModeCurrent == GameMode::playing)
             checkCheckersWithMouseInput(squareX, squareY);
@@ -118,6 +121,19 @@ void Game::checkCheckersWithMouseInput(int x, int y) {
                 break;
 
             case 2:
+                if (indexCheckerInPlay > -1 && indexCheckerInPlay < listCheckers.size() &&
+                    listCheckers[indexCheckerInPlay].checkHowFarCanMoveInAnyDirection(listCheckers) == 2) {
+                    // If the checker can move again (move 2 squares), keep it selected.
+                    checkerInPlayCanOnlyMove2Squares = true;
+                }
+                else {
+                    indexCheckerInPlay = -1;  // Deselect after move
+                    checkerInPlayCanOnlyMove2Squares = false;
+                    incrementTeamSelectedForGameplay();
+                }
+                break;
+
+            default:
                 if (indexCheckerInPlay > -1 && indexCheckerInPlay < listCheckers.size() &&
                     listCheckers[indexCheckerInPlay].checkHowFarCanMoveInAnyDirection(listCheckers) == 2) {
                     // If the checker can move again (move 2 squares), keep it selected.
