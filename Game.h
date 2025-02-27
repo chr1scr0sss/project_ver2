@@ -13,7 +13,7 @@ private:
 		playing,
 		teamRedWon,
 		teamBlueWon
-		
+
 	} gameModeCurrent;
 
 
