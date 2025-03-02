@@ -11,10 +11,14 @@ Checker::Checker(int setPosX, int setPosY, Team setTeam)
 }
 
 void Checker::loadTextures(SDL_Renderer* renderer) {
-    textureRedKing = TextureLoader::loadTexture("Checker Red King.bmp", renderer);
-    textureRedRegular = TextureLoader::loadTexture("Checker Red Regular.bmp", renderer);
-    textureBlueKing = TextureLoader::loadTexture("Checker Blue King.bmp", renderer);
-    textureBlueRegular = TextureLoader::loadTexture("Checker Blue Regular.bmp", renderer);
+    //textureRedKing = TextureLoader::loadTexture("Checker Red King.bmp", renderer);
+    //textureRedRegular = TextureLoader::loadTexture("Checker Red Regular.bmp", renderer);
+    //textureBlueKing = TextureLoader::loadTexture("Checker Blue King.bmp", renderer);
+    //textureBlueRegular = TextureLoader::loadTexture("Checker Blue Regular.bmp", renderer);
+    textureRedKing = TextureLoader::loadTexture("raspberryking.bmp", renderer);
+    textureRedRegular = TextureLoader::loadTexture("raspberry.bmp", renderer);
+    textureBlueKing = TextureLoader::loadTexture("blueberryking.bmp", renderer);
+    textureBlueRegular = TextureLoader::loadTexture("blueberry.bmp", renderer);
 }
 
 void Checker::draw(SDL_Renderer* renderer, int squareSizePixels) {
@@ -165,7 +169,7 @@ int Checker::tryToMoveToPosition(int x, int y, std::vector<Checker>& listChecker
     posY = y;
 
     // If the checker reaches the promotion row, promote it to a king
-    if ((team == Team::red && posY == 2) || (team == Team::blue && posY == 7)) {
+    if ((team == Team::red && posY == 9) || (team == Team::blue && posY == 0)) {
         isAKing = true;
     }
 
