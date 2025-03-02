@@ -9,6 +9,7 @@ Game::Game(SDL_Window* window, SDL_Renderer* renderer, int boardSizePixels) :
         // Load the textures for the checkers.
         Checker::loadTextures(renderer);
 
+        //textureCheckerBoard = TextureLoader::loadTexture("Board-checker.bmp.bmp", renderer);
         textureCheckerBoard = TextureLoader::loadTexture("Board checker (3).bmp", renderer);
 
         textureTeamRedWon = TextureLoader::loadTexture("Team Red Won Text.bmp", renderer);
