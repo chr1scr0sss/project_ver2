@@ -298,6 +298,41 @@ int Checker::checkHowFarCanMoveInDirection(int xDirection, int yDirection, std::
     }
 }
 
+bool Checker::canCaptureInAnyDirection(std::vector<Checker>& listCheckers) { //newly added
+    // Check all four diagonal directions for possible captures
+    for (int xDir : {-1, 1}) {
+        for (int yDir : {-1, 1}) {
+            // For regular pieces, only check forward directions
+            if (!isAKing &&
+                ((team == Team::red && yDir < 0) ||
+                    (team == Team::blue && yDir > 0))) {
+                continue;
+            }
+
+            // Check if there's an opponent's piece adjacent
+            int adjacentX = posX + xDir;
+            int adjacentY = posY + yDir;
+
+            if (adjacentX >= 0 && adjacentX < 10 && adjacentY >= 0 && adjacentY < 10) {
+                Checker* adjacentChecker = findCheckerAtPosition(adjacentX, adjacentY, listCheckers);
+
+                if (adjacentChecker && adjacentChecker->team != team) {
+                    // Check if the square beyond is empty
+                    int landingX = adjacentX + xDir;
+                    int landingY = adjacentY + yDir;
+
+                    if (landingX >= 0 && landingX < 10 && landingY >= 0 && landingY < 10 &&
+                        findCheckerAtPosition(landingX, landingY, listCheckers) == nullptr) {
+                        return true; // Can capture
+                    }
+                }
+            }
+        }
+    }
+
+    return false; // No captures available
+}
+
 Checker* Checker::findCheckerAtPosition(int x, int y, std::vector<Checker>& listCheckers) {
     for (auto& checker : listCheckers)
         if (checker.posX == x && checker.posY == y)
