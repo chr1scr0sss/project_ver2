@@ -80,7 +80,7 @@ void Game::processEvents(bool& running) {
     }
 }
 
-void Game::checkCheckersWithMouseInput(int x, int y) {
+void Game::checkCheckersWithMouseInput(int x, int y) { //newly modified on the default case
     if (x > -1 && x < 10 && y > -1 && y < 10) {
         // If no checker is selected, try to find and select one at the input position
         if (indexCheckerInPlay == -1) {
@@ -122,9 +122,10 @@ void Game::checkCheckersWithMouseInput(int x, int y) {
                 break;
 
             case 2:
+                // After a capture, check if another capture is possible
                 if (indexCheckerInPlay > -1 && indexCheckerInPlay < listCheckers.size() &&
-                    listCheckers[indexCheckerInPlay].checkHowFarCanMoveInAnyDirection(listCheckers) == 2) {
-                    // If the checker can move again (move 2 squares), keep it selected.
+                    listCheckers[indexCheckerInPlay].canCaptureInAnyDirection(listCheckers)) {
+                    // If the checker can capture again, keep it selected
                     checkerInPlayCanOnlyMove2Squares = true;
                 }
                 else {
@@ -135,9 +136,10 @@ void Game::checkCheckersWithMouseInput(int x, int y) {
                 break;
 
             default:
+                // For kings moving multiple squares
                 if (indexCheckerInPlay > -1 && indexCheckerInPlay < listCheckers.size() &&
-                    listCheckers[indexCheckerInPlay].checkHowFarCanMoveInAnyDirection(listCheckers) == 2) {
-                    // If the checker can move again (move 2 squares), keep it selected.
+                    listCheckers[indexCheckerInPlay].canCaptureInAnyDirection(listCheckers)) {
+                    // If the checker can capture again after moving, keep it selected
                     checkerInPlayCanOnlyMove2Squares = true;
                 }
                 else {
